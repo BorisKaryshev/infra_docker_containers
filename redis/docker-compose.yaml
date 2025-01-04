@@ -1,0 +1,14 @@
+services:
+  redis:
+    build: .
+    container_name: redis.g
+    hostname: redis.g
+    volumes:
+      - ./data/:/root/data
+    restart: unless-stopped
+    network_mode: bridge
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 200M
