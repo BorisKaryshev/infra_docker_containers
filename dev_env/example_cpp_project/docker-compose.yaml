@@ -1,0 +1,11 @@
+services:
+  file_server:
+    build: .
+    container_name: file_server.g
+    volumes:
+      - /mnt/SHARED/archive/published_to_web:/root/files:ro
+      - ./build:/root/build
+    ports:
+      - 5001:5000
+    network_mode: bridge
+    restart: no #unless-stopped

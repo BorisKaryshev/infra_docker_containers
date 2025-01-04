@@ -1,0 +1,6 @@
+/root/files/build/CMakeFiles/format.dir
+/root/files/build/CMakeFiles/corutine_test_lib.dir
+/root/files/build/CMakeFiles/corutine_test.dir
+/root/files/build/CMakeFiles/exe.dir
+/root/files/build/CMakeFiles/edit_cache.dir
+/root/files/build/CMakeFiles/rebuild_cache.dir

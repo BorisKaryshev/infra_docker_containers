@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcorutine_test_lib.a CMakeFiles/corutine_test_lib.dir/src/coruteine_test.cpp.o
+/usr/bin/ranlib libcorutine_test_lib.a

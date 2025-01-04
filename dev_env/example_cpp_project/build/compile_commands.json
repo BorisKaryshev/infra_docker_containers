@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/root/files/build",
+  "command": "/usr/bin/c++ -DBOOST_ATOMIC_NO_LIB -DBOOST_CONTEXT_NO_LIB -DBOOST_FIBER_NO_LIB -DBOOST_FILESYSTEM_NO_LIB -DBOOST_PROGRAM_OPTIONS_NO_LIB -I/root/files/include -isystem /usr/lib/boost/include -std=gnu++20 -Wall -Wextra -Werror -Wpedantic -pthread -g3 -O0 -o CMakeFiles/corutine_test_lib.dir/src/coruteine_test.cpp.o -c /root/files/src/coruteine_test.cpp",
+  "file": "/root/files/src/coruteine_test.cpp",
+  "output": "CMakeFiles/corutine_test_lib.dir/src/coruteine_test.cpp.o"
+},
+{
+  "directory": "/root/files/build",
+  "command": "/usr/bin/c++ -DBOOST_ATOMIC_NO_LIB -DBOOST_CONTEXT_NO_LIB -DBOOST_FIBER_NO_LIB -DBOOST_FILESYSTEM_NO_LIB -DBOOST_PROGRAM_OPTIONS_NO_LIB -I/root/files/include -isystem /usr/lib/boost/include -std=gnu++20 -Wall -Wextra -Werror -Wpedantic -pthread -g3 -O0 -o CMakeFiles/corutine_test.dir/src/main.cpp.o -c /root/files/src/main.cpp",
+  "file": "/root/files/src/main.cpp",
+  "output": "CMakeFiles/corutine_test.dir/src/main.cpp.o"
+}
+]
