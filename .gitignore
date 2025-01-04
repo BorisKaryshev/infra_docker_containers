@@ -1,2 +1,4 @@
 sql_server/data
 redis/data
+dev_env/.bash_history
+stm32_dev_env/.bash_history
