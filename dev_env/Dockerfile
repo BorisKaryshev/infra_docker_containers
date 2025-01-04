@@ -1,8 +1,8 @@
 FROM ubuntu:24.04
 
 RUN bash <<EOF
-  apt-get update -y
-  apt-get --assume-yes install vim git openssh-client ripgrep wget
+    apt-get update -y
+    apt-get --assume-yes install vim git openssh-client ripgrep wget
 EOF
 
 ARG ENABLE_CPP
@@ -14,6 +14,7 @@ ARG GITHUB_EMAIL
 RUN bash <<EOF
     set -euo pipefail
     [ "${ENABLE_CPP:-true}" == "true" ] || exit 0
+    apt-get update -y
     apt-get --assume-yes install cmake clang clangd clang-format
 EOF
 
@@ -22,6 +23,7 @@ RUN bash <<EOF
     set -euo pipefail
     [ "${ENABLE_PYTHON:-true}" == "true" ] || exit 0
 
+    apt-get update -y
     apt-get --assume-yes install python3.12 python3-pip
     pip install --break-system-packages pyright
     pip install --break-system-packages -r requirements.txt
