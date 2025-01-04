@@ -1,0 +1,7 @@
+services:
+  stm32_builder:
+    build: .
+    container_name: stm32_builder.g
+    network_mode: bridge
+    volumes:
+      - ./build:/root/files/build

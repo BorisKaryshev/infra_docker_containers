@@ -1,0 +1,26 @@
+services:
+  stm32_dev_env:
+    build:
+      context: .
+      args:
+        ENABLE_CPP: true
+    container_name: stm32_dev_env.g
+    hostname: stm32_dev_env.g
+    network_mode: bridge
+    volumes:
+      - ./example_cpp_project:/root/files
+    restart: no
+    dns:
+      - 192.168.1.12
+      - 77.88.8.8
+      - 77.88.8.1
+
+    # github auth configuring
+    secrets:
+      - github_ssh_token
+    environment:
+      GITHUB_USERNAME: "BorisKaryshev"
+      GITHUB_EMAIL: "boris.karyshev@gmail.com"
+secrets:
+   github_ssh_token:
+     file: /home/b-karyshev/.ssh/github_auth

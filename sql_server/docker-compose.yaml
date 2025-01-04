@@ -1,0 +1,30 @@
+services:
+  sql_server:
+    image: mysql:oracle
+    container_name: sql_server.g
+    hostname: sql_server.g
+    restart: no
+    network_mode: bridge
+    volumes:
+      - ./data:/var/lib/mysql
+    dns:
+      - 192.168.1.12
+      - 77.88.8.8
+      - 77.88.8.1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  php_my_admin:
+    image: phpmyadmin
+    container_name: php_my_admin.g
+    hostname: php_my_admin.g
+    restart: no
+    network_mode: bridge
+    dns:
+      - 192.168.1.12
+      - 77.88.8.8
+      - 77.88.8.1
+    ports:
+      - 80
+    environment:
+      - PMA_ARBITRARY=1

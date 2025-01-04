@@ -1,0 +1,7 @@
+Host github
+  HostName github.com
+  User git
+  Port 22
+  IdentityFile /run/secrets/github_ssh_token
+  IdentitiesOnly yes
+  ServerAliveInterval 60
