@@ -5,7 +5,6 @@ mkdir src
 cd src
 
 wget "https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz"
-
 tar xvzf nvim-linux64.tar.gz
 
 mkdir -p ~/.local
@@ -52,4 +51,4 @@ EOF
 echo "$var" >> init.lua
 echo "}" >> init.lua
 
-timeout 30 $HOME/.local/bin/nvim || true
+timeout 40 $HOME/.local/bin/nvim || true

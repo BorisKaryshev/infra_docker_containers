@@ -2,7 +2,7 @@ FROM ubuntu:24.04
 
 RUN bash <<EOF
     apt-get update -y
-    apt-get --assume-yes install vim git openssh-client ripgrep wget
+    apt-get --assume-yes install vim git openssh-client ripgrep wget neovim
 EOF
 
 ARG ENABLE_CPP
