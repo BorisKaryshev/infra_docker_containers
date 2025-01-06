@@ -17,7 +17,7 @@ set(CMAKE_SIZE arm-none-eabi-size)
 set(CPU_FLAGS "-mcpu=cortex-m3 -mthumb")
 set(CMAKE_ASM_FLAGS "-x assembler-with-cpp -mcpu=cortex-m3 -MMD -MP --specs=nano.specs -mfloat-abi=soft -mthumb")
 set(CMAKE_C_FLAGS "-ffunction-sections -mcpu=cortex-m3 -fdata-sections -Wall -fstack-usage -MMD -MP --specs=nosys.specs --specs=nano.specs -mfloat-abi=soft")
-set(CMAKE_CXX_FLAGS "-ffunction-sections -mcpu=cortex-m3 -fdata-sections -Wall -fstack-usage -MMD -MP --specs=nosys.specs --specs=nano.specs -mfloat-abi=soft")
+set(CMAKE_CXX_FLAGS "-ffunction-sections -fno-exceptions -mcpu=cortex-m3 -fdata-sections -Wall -fstack-usage -MMD -MP --specs=nosys.specs --specs=nano.specs -mfloat-abi=soft")
 set(LINK_FLAGS "--specs=nosys.specs -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group")
 
 set(CMAKE_EXECUTABLE_SUFFIX_ASM .elf)
@@ -43,6 +43,8 @@ set(source
 
 set(include_locations
     ${PROJECT_SOURCE_DIR}/include
+    /usr/include/c++/12
+    /usr/include/c++/13
 )
 
 set(includes
@@ -72,12 +74,12 @@ add_custom_target(
 )
 
 if(${BUILD_MODE} STREQUAL "DEBUG")
-    target_compile_options(${project_name} PRIVATE  -g3 -O0)
-    target_compile_options(${project_name}_lib PRIVATE  -g3 -O0)
+    target_compile_options(${project_name} PRIVATE -g3 -Os)
+    target_compile_options(${project_name}_lib PRIVATE -g3 -Os)
     add_definitions(-DDEBUG)
 elseif(${BUILD_MODE} STREQUAL "RELEASE")
-    target_compile_options(${project_name} PRIVATE  -O2)
-    target_compile_options(${project_name}_lib PRIVATE  -O2)
+    target_compile_options(${project_name} PRIVATE -Os)
+    target_compile_options(${project_name}_lib PRIVATE -Os)
     add_definitions(-DRELEASE)
 else()
     message(FATAL_ERROR "Unknow build mode")

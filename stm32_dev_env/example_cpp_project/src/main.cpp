@@ -1,6 +1,8 @@
 #include "stddef.h"
 #include "stm32f1xx.h"
 
+#include <cstdint>
+#include <ctime>
 #include "base_functions.hpp"
 
 auto pc13_high() -> void {
@@ -11,18 +13,23 @@ auto pc13_low() -> void {
     GPIOC->BSRR = GPIO_BSRR_BR13;
 }
 
-auto stm32f103_user_code::loop() -> void {
-    constexpr uint32_t delay_val = 300000;
-    pc13_high();       // включить первый светодиод
-    delay(delay_val);  // вызов подпрограммы задержки
-    pc13_low();        // выключить первый светодиод
-    delay(delay_val);  // вызов подпрограммы задержки
+auto loop(bool is_pc13_state_high) -> void {
+    if (is_pc13_state_high) {
+        pc13_high();
+    } else {
+        pc13_low();
+    }
 }
 
 auto main() -> int {
+    volatile bool is_pc13_state_high = true;
+    stm32f103_user_code::timer_wait_ms = 100;
     stm32f103_user_code::init();
+
+    stm32f103_user_code::timer_callback = [&is_pc13_state_high] { is_pc13_state_high = !is_pc13_state_high; };
+
     while (true) {
-        stm32f103_user_code::loop();
+        loop(is_pc13_state_high);
     }
     return 0;
 }
