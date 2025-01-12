@@ -7,8 +7,6 @@ services:
     container_name: stm32_dev_env.g
     hostname: stm32_dev_env.g
     network_mode: bridge
-    volumes:
-      - ./example_cpp_project:/root/files
     restart: no
     dns:
       - 192.168.1.12

@@ -27,7 +27,15 @@ EOF
 
 RUN bash <<EOF
     apt-get install --assume-yes libncurses-dev gcc-arm-none-eabi gdb gdb-multiarch
-    echo 'alias gdb="gdb-multiarch /root/files/build/stm32_project.elf"' >> ~/.bashrc
 EOF
 
-WORKDIR /root/files
+COPY bashrc /root/.bashrc
+
+RUN bash <<EOF
+    echo '#!/bin/bash' >> /root/.bash_logout
+    echo 'find /files -user root | xargs -I{} chown \$REAL_USER:\$REAL_USER {}' >> /root/.bash_logout
+    chmod u+x /root/.bash_logout
+    echo 'trap /root/.bash_logout EXIT' >> /root/.bashrc
+EOF
+
+WORKDIR /files

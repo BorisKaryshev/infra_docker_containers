@@ -1,0 +1,74 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+package="run_dev_env"
+
+env_name="dev_env"
+working_dir="$(pwd)"
+containers_path="/home/$(whoami)/dockers/infra"
+build=""
+
+while test $# -gt 0; do
+  case "$1" in
+    -h|--help)
+      echo "$package - runs development envirement in a container"
+      echo " "
+      echo "$package [options]"
+      echo " "
+      echo "options:"
+      echo "-h, --help                      show brief help"
+      echo "-n, --env_name=NAME             specify dev_env name"
+      echo "-d, --working_dir=DIR           specify a working directory"
+      echo "-e, --empty                     run without working dir"
+      echo "-p, --path_to_containers=PATH   specify a path to containers"
+      echo "-b, --build                     passed to docker compose"
+      exit 0
+      ;;
+    -n|--env_name)
+      shift
+      if test $# -gt 0; then
+        export env_name=$1
+      else
+        echo "no env name specified"
+        exit 1
+      fi
+      shift
+      ;;
+    -d|--working_dir)
+      shift
+      export working_dir=$(realpath $1)
+      shift
+      ;;
+    -p|--path_to_containers)
+      shift
+      if test $# -gt 0; then
+        export containers_path=$1
+      else
+        echo "no containers path specified"
+        exit 1
+      fi
+      shift
+      ;;
+    -b|--build)
+      export build="--build"
+      shift
+      ;;
+    -e|--empty)
+      export working_dir=""
+      shift
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+if [[ -n "$working_dir" ]]; then
+    working_dir="$working_dir:/files"
+fi
+
+if [[ -n "$working_dir" ]]; then
+    docker compose -f $containers_path/$env_name/docker-compose.yaml run --remove-orphans -e REAL_USER=$(whoami) -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $working_dir $build $env_name bash
+else
+    docker compose -f $containers_path/$env_name/docker-compose.yaml run --remove-orphans -e REAL_USER=$(whoami) -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro $build $env_name bash
+fi

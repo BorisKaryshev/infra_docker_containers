@@ -7,7 +7,6 @@ services:
         ENABLE_CPP: true
         GITHUB_USERNAME: "BorisKaryshev"
         GITHUB_EMAIL: "boris.karyshev@gmail.com"
-
     container_name: dev_env.g
     hostname: dev_env.g
     network_mode: bridge

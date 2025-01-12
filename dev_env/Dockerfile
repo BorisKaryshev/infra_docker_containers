@@ -8,8 +8,6 @@ EOF
 ARG ENABLE_CPP
 ARG ENABLE_PYTHON
 ARG ENABLE_BASH
-ARG GITHUB_USERNAME
-ARG GITHUB_EMAIL
 
 RUN bash <<EOF
     set -euo pipefail
@@ -32,8 +30,8 @@ EOF
 COPY setup_nvim.sh /root
 RUN /root/setup_nvim.sh
 
-ARG ENABLE_PYTHON
-ARG ENABLE_BASH
+ARG GITHUB_USERNAME
+ARG GITHUB_EMAIL
 
 COPY ssh/config /root/.ssh/
 RUN bash <<EOF
@@ -46,4 +44,13 @@ RUN bash <<EOF
     echo "$GITHUB_EMAIL" >> /root/gitconfig
 EOF
 
-WORKDIR /root/files
+COPY bashrc /root/.bashrc
+
+RUN bash <<EOF
+    echo '#!/bin/bash' >> /root/.bash_logout
+    echo 'find /files -user root | xargs -I{} chown \$REAL_USER:\$REAL_USER {}' >> /root/.bash_logout
+    chmod u+x /root/.bash_logout
+    echo 'trap /root/.bash_logout EXIT' >> /root/.bashrc
+EOF
+
+WORKDIR /files
