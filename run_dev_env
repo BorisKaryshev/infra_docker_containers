@@ -13,12 +13,11 @@ while test $# -gt 0; do
     -h|--help)
       echo "$package - runs development envirement in a container"
       echo " "
-      echo "$package [options]"
+      echo "$package [options] working_dir"
       echo " "
       echo "options:"
       echo "-h, --help                      show brief help"
       echo "-n, --env_name=NAME             specify dev_env name"
-      echo "-d, --working_dir=DIR           specify a working directory"
       echo "-e, --empty                     run without working dir"
       echo "-p, --path_to_containers=PATH   specify a path to containers"
       echo "-b, --build                     passed to docker compose"
@@ -32,11 +31,6 @@ while test $# -gt 0; do
         echo "no env name specified"
         exit 1
       fi
-      shift
-      ;;
-    -d|--working_dir)
-      shift
-      export working_dir=$(realpath $1)
       shift
       ;;
     -p|--path_to_containers)
@@ -58,7 +52,8 @@ while test $# -gt 0; do
       shift
       ;;
     *)
-      break
+      working_dir=$(realpath $1)
+      shift
       ;;
   esac
 done
