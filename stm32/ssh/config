@@ -5,3 +5,4 @@ Host github
   IdentityFile /run/secrets/github_ssh_token
   IdentitiesOnly yes
   ServerAliveInterval 60
+  StrictHostKeyChecking accept-new
