@@ -1,30 +1,31 @@
 services:
   sql_server:
-    image: mysql:oracle
+    image: gvenzl/oracle-free:23
     container_name: sql_server.g
     hostname: sql_server.g
     restart: no
     network_mode: bridge
     volumes:
-      - ./data:/var/lib/mysql
+      - ./data:/opt/oracle/oradata
+      - ./example_tables/:/container-entrypoint-initdb.d
+    ports:
+      - 1521:1521
     dns:
       - 192.168.1.12
       - 77.88.8.8
       - 77.88.8.1
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      APP_USER: "root"
+      APP_USER_PASSWORD: "root"
+      ORACLE_PASSWORD: root
 
-  php_my_admin:
-    image: phpmyadmin
-    container_name: php_my_admin.g
-    hostname: php_my_admin.g
+  dbeaver:
+    image: dbeaver/cloudbeaver
+    container_name: dbeaver.g
+    hostname: dbeaver.g
     restart: no
     network_mode: bridge
     dns:
       - 192.168.1.12
       - 77.88.8.8
       - 77.88.8.1
-    ports:
-      - 80
-    environment:
-      - PMA_ARBITRARY=1

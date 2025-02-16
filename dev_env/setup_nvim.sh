@@ -4,14 +4,14 @@ set -euo pipefail
 mkdir src
 cd src
 
-wget "https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz"
-tar xvzf nvim-linux64.tar.gz
+wget "https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz"
+tar xvzf nvim-linux-x86_64.tar.gz
 
 mkdir -p ~/.local
-mv nvim-linux64/* ~/.local
+mv nvim-linux-x86_64/* ~/.local
 
 [ "$(grep -oP "PATH=.*\.local/bin.*" ~/.bashrc)" == "" ] && echo "PATH=$HOME/.local/bin:$PATH" >> ~/.bashrc
-[ "$(grep -oP "alias vi=['\"]nvim['\"]" ~/.bashrc)" == "" ] && echo "alias vi='nvim -c \"set autoindent expandtab tabstop=4 shiftwidth=4\"'" >> ~/.bashrc
+[ "$(grep -oP "alias vi=['\"]nvim['\"]" ~/.bashrc)" == "" ] && echo "alias vi='nvim -c \"set autoindent shell=bash expandtab tabstop=4 shiftwidth=4\"'" >> ~/.bashrc
 
 git clone https://github.com/NvChad/starter ~/.config/nvim/
 

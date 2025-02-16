@@ -5,6 +5,8 @@ services:
       args:
         ENABLE_PYTHON: true
         ENABLE_CPP: true
+        ENABLE_RUST: true
+        ENABLE_GO: true
         GITHUB_USERNAME: "BorisKaryshev"
         GITHUB_EMAIL: "boris.karyshev@gmail.com"
     container_name: dev_env.g

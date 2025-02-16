@@ -1,0 +1,21 @@
+services:
+  file_server_old:
+    build: .
+    container_name: file_server_old.g
+    command: sh -c "python -m http.server --directory /root/files 5000"
+    environment:
+        TZ: Moscow-3
+    volumes:
+      - /mnt/SHARED/archive/published_to_web:/root/files:ro
+    network_mode: bridge
+    ports:
+      - 5000:5000
+    dns:
+      - 77.88.8.8
+      - 77.88.8.1
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 100M
